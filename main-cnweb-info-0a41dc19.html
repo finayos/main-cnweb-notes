@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes">
+    <title>日常查询与对照 | leyu 笔记</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f9fa;
+            color: #1f3a3b;
+            line-height: 1.7;
+            padding: 1.5rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .page-wrap {
+            max-width: 940px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        /* 网格卡片背景纹理 */
+        .hero {
+            background: linear-gradient(145deg, #d9f0f0 0%, #b7dfdd 100%);
+            border-radius: 2.5rem 1rem 2.5rem 1rem;
+            padding: 2.8rem 2rem 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 16px rgba(28, 92, 88, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: 2.1rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #0c2d2b;
+            position: relative;
+            margin-bottom: 0.6rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 80%;
+            color: #1f4543;
+            position: relative;
+        }
+        @media (max-width: 540px) {
+            .hero { padding: 2rem 1.2rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { max-width: 100%; font-size: 1rem; }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.6rem;
+            margin: 2.2rem 0 2.8rem;
+        }
+        .card {
+            background: white;
+            border-radius: 2rem 0.6rem 2rem 0.6rem;
+            padding: 1.8rem 1.4rem;
+            box-shadow: 0 4px 12px rgba(0, 40, 40, 0.05);
+            border: 1px solid #d2e7e5;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(30, 100, 90, 0.08);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            display: inline-block;
+            background: #ddf0ee;
+            color: #0e4440;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.15rem 1rem 0.15rem 0.5rem;
+            border-radius: 0 20px 20px 0;
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.01em;
+            border-left: 4px solid #2f8b85;
+        }
+        .card p {
+            font-size: 0.96rem;
+            color: #264b48;
+            margin-bottom: 0.25rem;
+        }
+        .card small {
+            color: #537774;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 0.5rem;
+            border-top: 1px dashed #c0dbd8;
+            padding-top: 0.5rem;
+        }
+
+        .bridge-text {
+            background: #e6f3f1;
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 2.2rem;
+            border-left: 5px solid #3b9e97;
+        }
+        .bridge-text p {
+            font-size: 1.02rem;
+            margin-bottom: 0.8rem;
+        }
+        .bridge-text a {
+            color: #1b6e68;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #95cac5;
+            font-weight: 500;
+        }
+        .bridge-text a:hover {
+            color: #07443f;
+            text-decoration-color: #1b6e68;
+        }
+
+        .faq-mini {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0 2.5rem;
+        }
+        .faq-item {
+            flex: 1 1 180px;
+            background: #ffffffd9;
+            backdrop-filter: blur(3px);
+            padding: 1.2rem 1rem;
+            border-radius: 1.2rem;
+            border: 1px solid #c9e0dc;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .faq-item .q {
+            font-weight: 500;
+            color: #0f4b46;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .faq-item .a {
+            font-size: 0.9rem;
+            color: #2b615c;
+        }
+
+        .gentle-end {
+            text-align: center;
+            padding: 1.5rem 0.5rem 0.2rem;
+            border-top: 2px solid #cde2df;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #386c67;
+        }
+        .gentle-end a {
+            color: #1b6e68;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #aed1cc;
+        }
+        .gentle-end a:hover {
+            color: #0a413c;
+        }
+
+        .footnote {
+            margin-top: 2.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #5f8581;
+            border-top: 1px solid #d0e3e0;
+            padding-top: 1.4rem;
+        }
+        /* 移动端微调 */
+        @media (max-width: 480px) {
+            .card-grid { gap: 1.2rem; }
+            .faq-mini { flex-direction: column; gap: 0.8rem; }
+            .bridge-text { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <div class="hero">
+        <h1>随手查，对照读</h1>
+        <p>一个安静的资料卡片页，供日常查询、延伸阅读时使用。</p>
+    </div>
+
+    <!-- 承接段落：自然引出 leyu -->
+    <div class="bridge-text">
+        <p>整理笔记时，常需要一个稳定的对照源。无论是随手检索一个名字，还是核对某段背景，<a href="https://main-cnweb-leyu.com">leyu</a> 都被我放在书签栏的固定位置——不张扬，但踏实。下面是我自己梳理的几个常用侧写，方便快速对照。</p>
+    </div>
+
+    <!-- 特点列表：网格卡片 -->
+    <div class="card-grid">
+        <div class="card">
+            <h3>🔹 检索习惯</h3>
+            <p>每天打开次数不多，但几乎每次都是带着明确问题：查一个拼写、看一段介绍、比对两三处细节。leyu 在这个流程里像一本常备案头书。</p>
+            <small>对照频率：稳定</small>
+        </div>
+        <div class="card">
+            <h3>🔸 横向延伸</h3>
+            <p>很多时候只是随手点开一个词条，结果顺着链接读了七八个页面。延伸阅读的路径很自然，没有多余干扰。</p>
+            <small>信息密度：适中</small>
+        </div>
+        <div class="card">
+            <h3>🔹 日常场景</h3>
+            <p>睡前、通勤、写东西卡壳时——这些零碎时刻里打开率最高。不需要登录或加载很久，打开即用，离开也轻快。</p>
+            <small>设备：手机 / 平板居多</small>
+        </div>
+        <div class="card">
+            <h3>🔸 对照与验证</h3>
+            <p>偶尔需要同时开两三个页面做交叉对照。leyu 的结构清晰，在分屏或标签页切换时不晕，适合需要反复确认的场景。</p>
+            <small>适用：核对、记录、引用</small>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要风格 -->
+    <div class="faq-mini">
+        <div class="faq-item">
+            <span class="q">❓ 适合什么人</span>
+            <span class="a">日常有浏览、搜索或资料对照习惯的人，不追求花哨功能，看重稳定与信息清晰度。</span>
+        </div>
+        <div class="faq-item">
+            <span class="q">❓ 怎么用更顺手</span>
+            <span class="a">建议直接存为书签或设为主页快捷方式。需要快速查对时，打开就好，不用经过首页层层跳转。</span>
+        </div>
+        <div class="faq-item">
+            <span class="q">❓ 内容更新节奏</span>
+            <span class="a">偏静态但定期微调，没有突发推送，适合自己掌握节奏阅读。</span>
+        </div>
+    </div>
+
+    <!-- 温和结尾 -->
+    <div class="gentle-end">
+        <p>一个安静的参照点，不需要太多修饰。如果你也在找一个可以随时打开、随手对照的地方，可以试试 <a href="https://main-cnweb-leyu.com">leyu</a>。</p>
+    </div>
+
+    <div class="footnote">
+        <span>日常查阅 · 对照笔记 · 安静入口</span>
+    </div>
+</div>
+</body>
+</html>
