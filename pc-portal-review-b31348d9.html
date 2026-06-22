@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爱游戏体育 · 信息索引页</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f4f6fa;
+      color: #1f2a3a;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(145deg, #0b1a2e 0%, #172b44 100%);
+      color: #e3e9f2;
+      padding: 4rem 1.5rem 3.2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,183,77,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      max-width: 680px;
+      margin: 0 auto 0.5rem;
+      opacity: 0.8;
+      font-weight: 300;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      margin-top: 0.8rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+      flex: 1;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2.8rem;
+    }
+
+    @media (min-width: 640px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0,0,0,0.04);
+      padding: 1.8rem 1.6rem;
+      transition: all 0.2s ease;
+      border: 1px solid #eaedf2;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+      border-color: #cbd5e1;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #0b1a2e;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card h3 i {
+      font-style: normal;
+      background: #eef2f7;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #2b4b6f;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #334155;
+      margin-bottom: 0.4rem;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.6rem;
+    }
+
+    .card li {
+      font-size: 0.92rem;
+      padding: 0.25rem 0;
+      position: relative;
+      padding-left: 1.2rem;
+      color: #2c3e50;
+    }
+
+    .card li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: #b4864b;
+      font-weight: bold;
+    }
+
+    /* 段落区域 – 自然链接 */
+    .content-block {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem 2rem 1.8rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      border: 1px solid #eaedf2;
+      margin-bottom: 2.4rem;
+    }
+
+    .content-block h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: #0b1a2e;
+      border-left: 4px solid #b4864b;
+      padding-left: 1rem;
+    }
+
+    .content-block p {
+      margin-bottom: 1rem;
+      max-width: 80ch;
+    }
+
+    .content-block a {
+      color: #b4864b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: color 0.15s;
+      font-weight: 500;
+    }
+
+    .content-block a:hover {
+      color: #7a5f30;
+      text-decoration-thickness: 2px;
+    }
+
+    .faq-item {
+      margin-top: 1.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed #dce2ec;
+    }
+
+    .faq-item strong {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: #1a2b3f;
+    }
+
+    .faq-item p {
+      font-size: 0.95rem;
+      color: #3a4b5e;
+      margin-bottom: 0.2rem;
+    }
+
+    .meta-note {
+      background: #f0f3f9;
+      border-radius: 14px;
+      padding: 1.2rem 1.6rem;
+      margin-top: 2rem;
+      border: 1px solid #dce3ed;
+      font-size: 0.9rem;
+      color: #2f4055;
+    }
+
+    .meta-note code {
+      background: #e4e9f0;
+      padding: 0.1rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: #2b4b6f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+      color: #6b7a8f;
+      border-top: 1px solid #dfe5ef;
+      background: white;
+    }
+
+    footer a {
+      color: #6b7a8f;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.7rem; }
+      .container { padding: 1.8rem 1rem; }
+      .content-block { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>爱游戏体育 · 信息索引</h1>
+  <p>围绕体育资讯与赛事关注，整理常用资料、场景与人群参考。</p>
+  <span class="tagline">📋 卡片式索引 · 轻量聚合</span>
+</header>
+
+<main class="container">
+
+  <!-- 用途卡片组 -->
+  <div class="card-grid">
+    <div class="card">
+      <h3><i>📌</i> 赛事动态</h3>
+      <p>主流联赛、杯赛日程与积分榜简讯，适合快速了解近期焦点对阵。</p>
+      <ul>
+        <li>五大联赛 / 欧冠 / NBA 关键节点</li>
+        <li>预选赛与洲际赛事时间参考</li>
+        <li>实时比分与短讯摘要</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><i>📁</i> 资料整理</h3>
+      <p>将历史数据、阵容变动、转会传闻等碎片信息归类，形成简易档案。</p>
+      <ul>
+        <li>球队与球员基础数据</li>
+        <li>赛季走势与交锋记录</li>
+        <li>机构评级与赔率参考</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><i>🧭</i> 导航集合</h3>
+      <p>梳理常用站点、官方渠道与内容平台，便于按需检索信息。</p>
+      <ul>
+        <li>联赛官网 / 俱乐部社媒</li>
+        <li>数据统计站点</li>
+        <li>视频集锦与赛后分析</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 适合人群段落 -->
+  <div class="content-block">
+    <h2>适合哪些人</h2>
+    <p>如果你习惯在赛前浏览交锋记录、查找阵容变化，或者只是想在周末快速了解几场焦点战的背景，这种资料索引方式会比较顺手。对于刚接触某项运动的朋友，这里也提供了一些基础名词和渠道指引。</p>
+    <p>另外，体育迷、数据分析爱好者、以及关注球队运营动态的读者，都可以把这里当作一个简单的中转站，不定期补充和更新内容。</p>
+  </div>
+
+  <!-- 自然链接段落 + 介绍性文字 -->
+  <div class="content-block">
+    <h2>关于爱游戏体育 · 索引结构</h2>
+    <p>
+      这个页面是基于日常信息整理习惯搭建的轻量索引。如果你对更完整的赛事资料、联赛结构或数据呈现方式感兴趣，可以了解 
+      <a href="https://pc-portal-ayx.com">爱游戏体育</a> 
+      所整合的相关内容。页面的初衷是帮助你自己判断和选取需要的部分，而不是替代官方信息渠道。
+    </p>
+    <p>
+      在整理过程中，我们会参考来自多个公开来源的赛程、排名与新闻摘要，尽量保持信息的时效性。但所有内容仅供个人参考，不构成任何决策依据。
+    </p>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-item">
+      <strong>❓ 信息多久更新一次？</strong>
+      <p>通常在每个比赛周结束后或重大事件发生时进行补充。非实时推送，适合作为日常浏览的辅助。</p>
+    </div>
+    <div class="faq-item">
+      <strong>❓ 这里的资料适合用来做分析吗？</strong>
+      <p>可以作为初步检索的起点，深度分析建议核对原始数据源或官方统计。</p>
+    </div>
+    <div class="faq-item">
+      <strong>❓ 我可以分享这个索引吗？</strong>
+      <p>可以，但建议同时注明信息可能存在滞后，并自行核实关键数据。</p>
+    </div>
+  </div>
+
+  <!-- 小提示 / 补充 -->
+  <div class="meta-note">
+    <strong>📎 使用建议</strong> – 部分链接指向外部站点，访问时请注意甄别内容时效。本索引不收集任何用户数据，仅做信息陈列。
+    <span style="display:inline-block; margin-left: 0.8rem; opacity:0.5;">|</span>
+    <code style="margin-left:0.4rem;">ref: e6ac07</code>
+  </div>
+
+</main>
+
+<footer>
+  <p>信息卡片式索引 · 仅供个人参考 · <a href="https://pc-portal-ayx.com" style="text-decoration:underline;">爱游戏体育</a></p>
+  <p style="margin-top:0.3rem; font-size:0.8rem;">无诱导内容 · 请自行核实信息来源</p>
+</footer>
+
+</body>
+</html>
